@@ -1,0 +1,13 @@
+name: Keep Alive
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # كل 15 دقيقة، يكفي لإبقاء السيرفر مستيقظًا
+  workflow_dispatch:          # يسمح بتشغيله يدويًا متى شئت
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render server
+        run: curl -s https://yaqeen-ai-backend.onrender.com/health || curl -s https://yaqeen-ai-backend.onrender.com
