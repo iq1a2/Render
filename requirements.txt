@@ -1,5 +1,10 @@
 fastapi
-uvicorn[standard]
+uvicorn
 python-multipart
-shutil
 aiofiles
+opencv-python-headless
+numpy
+scipy
+pillow
+aiofiles
+
