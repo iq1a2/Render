@@ -268,5 +268,38 @@ async def analyze_url(request: dict):
         "verification_id": "YQ-URL-SAFE"
     }
 
+@app.post("/verify-source")
+async def verify_source(file: UploadFile = File(...)):
+    try:
+        # Simulate processing time
+        import time
+        import random
+        time.sleep(1.5)
+        
+        # Mock logic: checking hash against "Global Databases"
+        # In a real app, this would query Google Vision API or a media database
+        
+        # 20% chance of finding a "match" (Simulated existing photo)
+        found_match = random.random() < 0.2
+        
+        if found_match:
+            return {
+                "source_verified": True,
+                "sources": ["Reuters Archive", "Associated Press (AP)"],
+                "message": "Similar image found in trusted news archives.",
+                "google_search_url": "https://www.google.com/searchbyimage?image_url=example"
+            }
+        else:
+             return {
+                "source_verified": False,
+                "sources": [],
+                "message": "No matches found in major news agencies (Reuters, AFP, AP). This image may be unique or unpublished.",
+                "google_search_url": "https://www.google.com/search?q=reverse+image+search" 
+            }
+
+    except Exception as e:
+         print(f"Source Verification Error: {e}")
+         return {"source_verified": False, "message": "Could not verify source at this time."}
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
